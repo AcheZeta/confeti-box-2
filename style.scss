@@ -1,0 +1,302 @@
+$background: #293649;
+$box-size: 250px;
+$triangle-size: $box-size/2;
+$translate: 90%;
+$animationTime: 5s;
+$darkOrange: #e37323;
+$orange: #f29225;
+$green: #4cb291;
+
+@mixin triangle-flip() {
+  width: 0;
+  height: 0;
+  border: solid;
+  position: absolute;
+  z-index: 2;
+}
+
+@mixin circle($size, $top, $left, $color) {
+  position: absolute;
+  border: 0px solid $color;
+  border-radius: 50%;
+  top: $top;
+  left: $left;
+  width: $size;
+  height: $size;
+  background-color:$background;
+  z-index: 1;
+}
+
+@mixin square($size, $top, $left, $color) {
+  position: absolute;
+  width: $size;
+  height: $size;
+  background: $color;
+  top: $top;
+  left: $left;
+  z-index: 1;
+}
+
+// Mixin Animation for movement. 
+@mixin animation ($animationName, $animationTime) {
+  animation: #{$animationName} #{$animationTime} infinite;
+}
+
+@mixin move ($animationName) {
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+  background-color: $background;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.box {
+  position: relative;
+  top: 25%;
+  width: $box-size;
+  height: $box-size;
+  overflow: hidden;
+}
+
+// top || bottom || left || right
+.flip-top{
+  @include triangle-flip();
+  @include animation(up, $animationTime);
+  @include move(up) {
+    50% { transform: translateY(-$translate) }
+  }
+  top: 0;
+  left: 0;
+  border-width: $triangle-size $triangle-size 0 $triangle-size;
+  border-color: #2e80bc transparent transparent transparent;
+}
+
+.flip-left {
+  @include triangle-flip();
+  @include animation(left, $animationTime);
+  @include move(left) {
+    50% { transform: translateX(-$translate) }
+  }
+  left: 0;
+  bottom: 0;
+  border-width: $triangle-size 0 $triangle-size $triangle-size;
+  border-color: transparent transparent transparent #1c72b3;
+}
+
+.flip-right {
+  @include triangle-flip();
+  @include animation(right, $animationTime);
+  @include move(right) {
+    50% { transform: translateX($translate) }
+  }
+  right: 0;
+  top: 0;
+  border-style: solid;
+  border-width: $triangle-size $triangle-size $triangle-size 0;
+  border-color: transparent #1c72b3 transparent transparent;
+}
+
+.flip-bottom {
+  @include triangle-flip();
+  @include animation(bottom, $animationTime);
+  @include move(bottom) {
+    50% { transform: translateY($translate) }
+  }
+  right: 0;
+  bottom: 0;
+  border-width: 0 $triangle-size $triangle-size $triangle-size;
+  border-color: transparent transparent #1c69a3 transparent;
+}
+
+.circle-1 {
+  @include circle(10px, 50%, 50%, $orange);
+  @include animation(c1, $animationTime);
+  @include move(c1) {
+    50% {
+    border: 2px solid $orange;
+    width: 5%;
+    height: 5%;
+    transform: translate(-400%, 400%);
+    }
+  }
+}
+
+.circle-2 {
+  @include circle(0, 50%, 50%, $green);
+  @include animation(c2, $animationTime);
+  @include move(c2) {
+    50% {
+    border: 3px solid $green;
+    width: 5%;
+    height: 5%;
+    transform: translate(-150%, 250%);
+    }
+  }
+}
+
+.circle-3 {
+  @include circle(0, 50%, 50%, $darkOrange);
+  @include animation(c3, $animationTime);
+  @include move(c3) {
+    50% {
+    border: 2px solid $darkOrange;
+    width: 2%;
+    height: 2%;
+    transform: translate(180%, 360%);
+    }
+  }
+}
+
+.circle-4 {
+  @include circle(0, 50%, 50%, $orange);
+  @include animation(c4, $animationTime);
+  @include move(c4) {
+    50% {
+    border: 2px solid $darkOrange;
+    width: 3%;
+    height: 3%;
+    transform: translate(-180%, -260%);
+    }
+  }
+}
+
+.circle-5 {
+  @include circle(10px, 50%, 50%, $darkOrange);
+  @include animation(c5, $animationTime);
+  @include move(c5) {
+    50% {
+    border: 3px solid $darkOrange;
+    width: 2%;
+    height: 2%;
+    transform: translate(230%, -470%);
+    }
+  }
+}
+
+.circle-6 {
+  @include circle(10px, 50%, 50%, $green);
+  @include animation(c6, $animationTime);
+  @include move(c6) {
+    50% {
+    border: 3px solid $green;
+    width: 3%;
+    height: 3%;
+    transform: translate(40%, -290%);
+    }
+  }
+}
+.circle-7 {
+  @include circle(10px, 50%, 50%, $darkOrange);
+  @include animation(c7, $animationTime);
+  @include move(c7) {
+    50% {
+    border: 5px solid $darkOrange;
+    width: 5%;
+    height: 5%;
+    transform: translate(-10%, -350%);
+    }
+  }
+}
+
+.square-1 {
+  @include square(2px, 50%, 50%, $green);
+  @include animation(s1, $animationTime);
+  @include move(s1) {
+    50% {
+    width: 6%;
+    height: 6%;
+    transform: translate(-373%, 10%) rotate(45deg);
+    }
+  }
+}
+
+.square-2 {
+  @include square(2px, 50%, 50%, $green);
+  @include animation(s2, $animationTime);
+  @include move(s2) {
+    50% {
+    width: 4%;
+    height: 4%;
+    transform: translate(-226%, 12%) rotate(45deg);
+    }
+  }
+}
+
+.square-3 {
+  @include square(2px, 50%, 50%, $orange);
+  @include animation(s3, $animationTime);
+  @include move(s3) {
+    50% {
+    width: 8%;
+    height: 8%;
+    transform: translate(-336%, -342%) rotate(45deg);
+    }
+  }
+}
+
+.square-4 {
+  @include square(2px, 50%, 50%, $darkOrange);
+  @include animation(s4, $animationTime);
+  @include move(s4) {
+    50% {
+    width: 9%;
+    height: 9%;
+    transform: translate(156%, -362%) rotate(45deg);
+    }
+  }
+}
+
+.square-5 {
+  @include square(2px, 50%, 50%, $green);
+  @include animation(s5, $animationTime);
+  @include move(s5) {
+    50% {
+    width: 2%;
+    height: 2%;
+    transform: translate(256%, -362%) rotate(45deg);
+    }
+  }
+}
+
+.square-5 {
+  @include square(2px, 50%, 50%, $orange);
+  @include animation(s5, $animationTime);
+  @include move(s5) {
+    50% {
+    width: 3%;
+    height: 3%;
+    transform: translate(365%, -132%) rotate(45deg);
+    }
+  }
+}
+
+.square-6 {
+  @include square(2px, 50%, 50%, $orange);
+  @include animation(s6, $animationTime);
+  @include move(s6) {
+    50% {
+    width: 5%;
+    height: 5%;
+    transform: translate(365%, 132%) rotate(45deg);
+    }
+  }
+}
+
+.square-7 {
+  @include square(2px, 50%, 50%, $orange);
+  @include animation(s7, $animationTime);
+  @include move(s7) {
+    50% {
+    width: 4%;
+    height: 4%;
+    transform: translate(29%, 656%) rotate(45deg);
+    }
+  }
+}
